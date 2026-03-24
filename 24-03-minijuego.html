@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minijuego</title>
+</head>
+<body>
+    <h1>Puntos: <span id="puntos">0</span></h1>
+    <h2>Tiempo: <span id="tiempo">20</span></h2>
+
+    <button class="btn" onclick="sumar()">🎯</button>
+    <button class="btn" onclick="restar()">💀</button>
+
+    <script>
+        let puntos = 0;
+
+        function mover() {
+            let botones = document.getElementsByClassName("btn");
+            for(let i = 0; i < botones.length; i++) {
+                let x = Math.random() * 300;
+                let y = Math.random() * 300;
+
+                botones[i].style.position = "absolute";
+                botones[i].style.left = x + "px";
+                botones[i].style.top = y + "px";
+            }
+        }
+
+        setInterval(mover, 1000);
+
+        function sumar() {
+            puntos++;
+            document.getElementById("puntos").innerText = puntos;
+        }
+
+        function restar() {
+            puntos--;
+            document.getElementById("puntos").innerText = puntos;
+        }
+
+        /// Tiempo
+        let tiempo = 20;
+
+        let contador = setInterval(function() {
+            tiempo--;
+            document.getElementById("tiempo").innerText = tiempo;
+
+            if(tiempo <= 0) {
+                clearInterval(contador);
+                alert("⏰ Fin del juego");
+            }
+        }, 1000);
+
+
+    </script>
+</body>
+</html>
