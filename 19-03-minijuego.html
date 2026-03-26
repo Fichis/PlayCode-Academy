@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minijuego v1</title>
+</head>
+<body>
+    <h1>¡Atrapa el botón! 😈</h1>
+
+    <button id="btn" onmouseover="mover()" onclick="ganar()">¡Púlsame!</button>
+
+
+
+    <script>
+        function mover () {
+            let boton = document.getElementById("btn");
+
+            let x = Math.random() * 300;
+            let y = Math.random() * 300;
+            
+            boton.style.position = "absolute";
+            boton.style.left = x + "px";
+            boton.style.top = y + "px";
+        }
+
+        function ganar () {
+            alert("🎉 ¡Has ganado! 🎉");
+        }
+    </script>
+</body>
+</html>
