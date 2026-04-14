@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del topo</title>
+</head>
+<body>
+    <h1>Puntos: <span id="puntos">0</span></h1>
+
+    <button id="topo" onclick="golpear()">🐞</button>
+
+    <script>
+        let puntos = 0;
+
+        //mover topo
+        function mover() {
+            let x = Math.random() * 500;
+            let y = Math.random() * 450;
+
+            let topo = document.getElementById("topo");
+            topo.style.position = "absolute";
+            topo.style.left = x + "px";
+            topo.style.top = y + "px";
+        }
+
+        //Sumar puntos 
+        function golpear() {
+            puntos++;
+            document.getElementById("puntos").innerText = puntos;
+        }
+
+        function aparecer() {
+            let topo = document.getElementById("topo");
+
+            //aparece
+            topo.style.display = "block";
+            mover();
+
+            //Desaparece después de un tiempo
+            setTimeout(() => {
+                topo.style.display = "none";
+            }, 650);
+        }
+
+        //Repetir
+        setInterval(aparecer, 1150);
+    </script>
+</body>
+</html>
