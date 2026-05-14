@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pilla el Tesoro</title>
+
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#222;
+        color:white;
+        text-align:center;
+    }
+
+    h1{
+        margin:10px;
+    }
+
+    #game{
+        width:700px;
+        height:450px;
+        background:#333;
+        margin:20px auto;
+        position:relative;
+        overflow:hidden;
+        border:5px solid white;
+        border-radius:12px;
+    }
+
+    #player{
+        width:50px;
+        height:50px;
+        background:dodgerblue;
+        position:absolute;
+        left:50px;
+        top:200px;
+        border-radius:10px;
+    }
+
+    .coin{
+        width:35px;
+        height:35px;
+        background:gold;
+        border-radius:50%;
+        position:absolute;
+    }
+
+    #info{
+        font-size:24px;
+    }
+
+    #message{
+        font-size:30px;
+        margin-top:10px;
+        color:#00ff88;
+    }
+
+    button{
+        padding:10px 20px;
+        font-size:18px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        margin-top:10px;
+    }
+</style>
+</head>
+<body>
+
+<h1>🎮 Pilla el Tesoro</h1>
+
+<div id="info">
+    Puntos: <span id="score">0</span> |
+    Tiempo: <span id="time">30</span>
+</div>
+
+<div id="game">
+    <div id="player"></div>
+    <div class="coin" id="coin"></div>
+</div>
+
+<div id="message"></div>
+
+<button onclick="startGame()">Empezar</button>
+
+<script>
+const player = document.getElementById("player");
+const coin = document.getElementById("coin");
+const scoreText = document.getElementById("score");
+const timeText = document.getElementById("time");
+const message = document.getElementById("message");
+
+let playerX = 50;
+let playerY = 200;
+
+let score = 0;
+let timeLeft = 30;
+let gameRunning = false;
+let timer;
+
+const speed = 20;
+
+// Colocar moneda aleatoria
+function moveCoin(){
+    const game = document.getElementById("game");
+
+    const maxX = game.clientWidth - 35;
+    const maxY = game.clientHeight - 35;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    coin.style.left = randomX + "px";
+    coin.style.top = randomY + "px";
+}
+
+// Detectar teclas
+document.addEventListener("keydown", (e)=>{
+
+    if(!gameRunning) return;
+
+    if(e.key === "ArrowUp"){
+        playerY -= speed;
+    }
+
+    if(e.key === "ArrowDown"){
+        playerY += speed;
+    }
+
+    if(e.key === "ArrowLeft"){
+        playerX -= speed;
+    }
+
+    if(e.key === "ArrowRight"){
+        playerX += speed;
+    }
+
+    // Límites
+    playerX = Math.max(0, Math.min(650, playerX));
+    playerY = Math.max(0, Math.min(400, playerY));
+
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
+
+    checkCollision();
+});
+
+// Colisión
+function checkCollision(){
+
+    const playerRect = player.getBoundingClientRect();
+    const coinRect = coin.getBoundingClientRect();
+
+    if(
+        playerRect.left < coinRect.right &&
+        playerRect.right > coinRect.left &&
+        playerRect.top < coinRect.bottom &&
+        playerRect.bottom > coinRect.top
+    ){
+        score++;
+        scoreText.textContent = score;
+        moveCoin();
+    }
+}
+
+// Iniciar juego
+function startGame(){
+
+    score = 0;
+    timeLeft = 30;
+
+    scoreText.textContent = score;
+    timeText.textContent = timeLeft;
+
+    message.textContent = "";
+
+    playerX = 50;
+    playerY = 200;
+
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
+
+    moveCoin();
+
+    gameRunning = true;
+
+    clearInterval(timer);
+
+    timer = setInterval(()=>{
+
+        timeLeft--;
+        timeText.textContent = timeLeft;
+
+        if(timeLeft <= 0){
+
+            clearInterval(timer);
+            gameRunning = false;
+
+            message.textContent =
+                "⏰ Fin del juego. Puntos: " + score;
+        }
+
+    },1000);
+}
+</script>
+
+</body>
+</html>
