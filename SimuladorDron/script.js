@@ -15,10 +15,10 @@ function updateDrone() {
 window.addEventListener("keydown", (event) => {
   const key = event.key.toLowerCase();
 
-  if (key === "d") x += speed;
-  if (key === "a") x -= speed;
-  if (key === "w") y -= speed;
-  if (key === "s") y += speed;
+  if (key === "1") x += speed;
+  if (key === "2") x -= speed;
+  if (key === "3") y -= speed;
+  if (key === "4") y += speed;
 
   // 1. Primero actualizas la posición visual
   updateDrone();
@@ -55,7 +55,7 @@ function touching(a, b) {
 
 function moveRight() {
   x += speed;
-  updateDrone();
+  updateDrone();3
 }
 
 function moveDown() {
