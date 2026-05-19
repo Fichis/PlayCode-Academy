@@ -64,7 +64,7 @@ function moveDown() {
 }
 
 
-setTimeout(moveDown, 500);
+/* setTimeout(moveDown, 500);
 setTimeout(moveDown, 1000);
 setTimeout(moveDown, 1500);
 setTimeout(moveDown, 2000);
@@ -106,5 +106,5 @@ setTimeout(moveRight, 19500);
 setTimeout(moveRight, 20000);
 setTimeout(moveRight, 20500);
 setTimeout(moveRight, 21000);
-setTimeout(moveRight, 21500);
+setTimeout(moveRight, 21500); */
 
