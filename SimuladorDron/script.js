@@ -32,7 +32,7 @@ window.addEventListener("keydown", (event) => {
     const obstacleRect = obstacle.getBoundingClientRect();
 
     if (touching(droneRect, obstacleRect)) {
-      alert("💥 Choque!");
+      alert("feo");
       return; // importante: corta el movimiento
     }
   }
