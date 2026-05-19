@@ -64,7 +64,45 @@ function moveDown() {
 }
 
 
-setTimeout(moveRight, 500);
-setTimeout(moveRight, 1000);
+setTimeout(moveDown, 500);
+setTimeout(moveDown, 1000);
 setTimeout(moveDown, 1500);
 setTimeout(moveDown, 2000);
+setTimeout(moveDown, 2500);
+setTimeout(moveDown, 3000);
+setTimeout(moveDown, 3500);
+setTimeout(moveDown, 4000);
+setTimeout(moveDown, 4500);
+setTimeout(moveDown, 5000);
+setTimeout(moveDown, 5500);
+setTimeout(moveDown, 6000);
+setTimeout(moveDown, 6500);
+setTimeout(moveDown, 7000);
+setTimeout(moveDown, 7500);
+setTimeout(moveRight, 8000);
+setTimeout(moveRight, 8500);
+setTimeout(moveRight, 9000);
+setTimeout(moveRight, 9500);
+setTimeout(moveRight, 10000);
+setTimeout(moveRight, 10500);
+setTimeout(moveRight, 11000);
+setTimeout(moveRight, 11500);
+setTimeout(moveRight, 12000);
+setTimeout(moveRight, 12500);
+setTimeout(moveRight, 13000);
+setTimeout(moveRight, 13500);
+setTimeout(moveRight, 14000);
+setTimeout(moveRight, 14500);
+setTimeout(moveRight, 15000);
+setTimeout(moveRight, 15500);
+setTimeout(moveRight, 16000);
+setTimeout(moveRight, 16500);
+setTimeout(moveRight, 17000);
+setTimeout(moveRight, 17500);
+setTimeout(moveRight, 18000);
+setTimeout(moveRight, 18500);
+setTimeout(moveRight, 19000);
+setTimeout(moveRight, 19500);
+setTimeout(moveRight, 20000);
+setTimeout(moveRight, 20500);
+
