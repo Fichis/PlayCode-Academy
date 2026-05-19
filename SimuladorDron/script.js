@@ -105,4 +105,6 @@ setTimeout(moveRight, 19000);
 setTimeout(moveRight, 19500);
 setTimeout(moveRight, 20000);
 setTimeout(moveRight, 20500);
+setTimeout(moveRight, 21000);
+setTimeout(moveRight, 21500);
 
