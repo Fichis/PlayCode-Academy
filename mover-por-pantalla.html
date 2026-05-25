@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Imagen rebotando</title>
+
+<style>
+    body{
+        margin:0;
+        overflow:hidden;
+        background:black;
+    }
+
+    img{
+        position:absolute;
+        width:120px;
+    }
+</style>
+</head>
+<body>
+
+<img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg">
+
+<script>
+
+const logo = document.getElementById("logo");
+
+let x = 100;
+let y = 100;
+
+let velX = 2;
+let velY = 2;
+
+function mover(){
+
+    x += velX;
+    y += velY;
+
+    const anchoPantalla = window.innerWidth;
+    const altoPantalla = window.innerHeight;
+
+    const anchoImagen = logo.offsetWidth;
+    const altoImagen = logo.offsetHeight;
+
+    // Rebote horizontal
+    if(x + anchoImagen >= anchoPantalla || x <= 0){
+        velX = -velX;
+    }
+
+    // Rebote vertical
+    if(y + altoImagen >= altoPantalla || y <= 0){
+        velY = -velY;
+    }
+
+    logo.style.left = x + "px";
+    logo.style.top = y + "px";
+
+    requestAnimationFrame(mover);
+}
+
+mover();
+
+</script>
+
+</body>
+</html>
