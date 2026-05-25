@@ -1,0 +1,236 @@
+html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Juego de Carreras 🚗</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#222;
+      overflow:hidden;
+    }
+
+    #game{
+      position:relative;
+      width:400px;
+      height:700px;
+      margin:20px auto;
+      background:#555;
+      overflow:hidden;
+      border:6px solid white;
+      border-radius:10px;
+    }
+
+    /* Carretera */
+    .line{
+      position:absolute;
+      width:10px;
+      height:70px;
+      background:white;
+      left:195px;
+    }
+
+    /* Jugador */
+    #player{
+      position:absolute;
+      font-size:50px;
+      bottom:20px;
+      left:170px;
+      user-select:none;
+      transition:0.05s;
+    }
+
+    /* Obstáculos */
+    .enemy{
+      position:absolute;
+      font-size:50px;
+      top:-60px;
+    }
+
+    /* Texto */
+    #score{
+      position:absolute;
+      top:10px;
+      left:10px;
+      color:white;
+      font-size:24px;
+      z-index:10;
+    }
+
+    #gameOver{
+      position:absolute;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.8);
+      color:white;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      font-size:30px;
+      z-index:20;
+      display:none;
+    }
+
+    button{
+      margin-top:20px;
+      padding:10px 20px;
+      font-size:20px;
+      cursor:pointer;
+      border:none;
+      border-radius:10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game">
+
+  <div id="score">Puntos: 0</div>
+
+  <div id="player">🚗</div>
+
+  <div id="gameOver">
+    <div>💥 GAME OVER 💥</div>
+    <button onclick="restartGame()">Reiniciar</button>
+  </div>
+
+</div>
+
+<script>
+  const game = document.getElementById("game");
+  const player = document.getElementById("player");
+  const scoreText = document.getElementById("score");
+  const gameOverScreen = document.getElementById("gameOver");
+
+  let playerX = 170;
+  let score = 0;
+  let speed = 5;
+  let gameRunning = true;
+
+  // Crear líneas de carretera
+  for(let i=0; i<5; i++){
+    const line = document.createElement("div");
+    line.classList.add("line");
+    line.style.top = (i * 170) + "px";
+    game.appendChild(line);
+  }
+
+  const lines = document.querySelectorAll(".line");
+
+  // Movimiento del jugador
+  document.addEventListener("keydown", (e)=>{
+    if(!gameRunning) return;
+
+    if(e.key === "ArrowLeft" && playerX > 20){
+      playerX -= 25;
+    }
+
+    if(e.key === "ArrowRight" && playerX < 330){
+      playerX += 25;
+    }
+
+    player.style.left = playerX + "px";
+  });
+
+  // Crear enemigos
+  function createEnemy(){
+    const enemy = document.createElement("div");
+    enemy.classList.add("enemy");
+    enemy.innerHTML = "🚙";
+
+    const positions = [50, 150, 250, 330];
+    enemy.style.left = positions[Math.floor(Math.random()*positions.length)] + "px";
+
+    game.appendChild(enemy);
+
+    let enemyY = -60;
+
+    function moveEnemy(){
+      if(!gameRunning) return;
+
+      enemyY += speed;
+      enemy.style.top = enemyY + "px";
+
+      // Colisión
+      const playerRect = player.getBoundingClientRect();
+      const enemyRect = enemy.getBoundingClientRect();
+
+      if(
+        playerRect.left < enemyRect.right &&
+        playerRect.right > enemyRect.left &&
+        playerRect.top < enemyRect.bottom &&
+        playerRect.bottom > enemyRect.top
+      ){
+        endGame();
+      }
+
+      // Eliminar enemigo
+      if(enemyY > 750){
+        enemy.remove();
+        score++;
+        scoreText.innerText = "Puntos: " + score;
+
+        // Aumentar dificultad
+        if(score % 5 === 0){
+          speed += 0.5;
+        }
+
+      } else {
+        requestAnimationFrame(moveEnemy);
+      }
+    }
+
+    moveEnemy();
+  }
+
+  // Mover líneas
+  function moveLines(){
+    if(!gameRunning) return;
+
+    lines.forEach(line=>{
+      let top = parseInt(line.style.top);
+
+      top += speed;
+
+      if(top > 700){
+        top = -100;
+      }
+
+      line.style.top = top + "px";
+    });
+
+    requestAnimationFrame(moveLines);
+  }
+
+  // Crear enemigos continuamente
+  let enemyInterval = setInterval(()=>{
+    if(gameRunning){
+      createEnemy();
+    }
+  }, 1200);
+
+  function endGame(){
+    gameRunning = false;
+    gameOverScreen.style.display = "flex";
+    clearInterval(enemyInterval);
+  }
+
+  function restartGame(){
+    location.reload();
+  }
+
+  moveLines();
+</script>
+
+</body>
+</html>
