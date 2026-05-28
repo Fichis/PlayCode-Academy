@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 3 virus informaticos</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        #logo {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <ol>
+        <li>virus informatico</li>
+        <li>mayroon</li>
+        <li>buncy budi</li>
+    </ol>
+
+    <img id="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErZz2arnVvNXdB0M2XLNM__SmWPN87hiaCw&s"
+        alt="you are an idiot">
+
+
+
+    <script>
+
+        const logo = document.getElementById("logo");
+
+        let x = 100;
+        let y = 100;
+
+        let velX = 2;
+        let velY = 2;
+
+        function mover() {
+
+            x += velX;
+            y += velY;
+
+            const anchoPantalla = window.innerWidth;
+            const altoPantalla = window.innerHeight;
+
+            const anchoImagen = logo.offsetWidth;
+            const altoImagen = logo.offsetHeight;
+
+            // Rebote horizontal
+            if (x + anchoImagen >= anchoPantalla || x <= 0) {
+                velX = -velX;
+            }
+
+            // Rebote vertical
+            if (y + altoImagen >= altoPantalla || y <= 0) {
+                velY = -velY;
+            }
+
+            logo.style.left = x + "px";
+            logo.style.top = y + "px";
+
+            requestAnimationFrame(mover);
+        }
+
+        mover();
+
+    </script>
+</body>
+
+</html>
